@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Parent Page{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <nav>
+        <a href="{% url 'TraineeList' %}">Trainees</a>
+        <a href="{% url 'CourseList' %}">Courses</a>
+        <a href="{% url 'Logout' %}">Logout</a>
+    </nav>
+
+    <main>
+        {% block content %}
+        content
+        {% endblock %}
+    </main>
+
+</body>
+</html>

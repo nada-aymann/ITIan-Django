@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Trainees | Add Trainee{% endblock %}
+
+{% block content %}
+<h1>Add New Trainee</h1>
+<form method="post">
+    <label for="tName">Trainee Name:</label>
+    <input type="text" id="tName" name="trainee-name" placeholder="Enter trainee name" required>
+    <button type="submit" class="btn">Add Trainee</button>
+</form>
+{%endblock%}
