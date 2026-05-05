@@ -72,7 +72,7 @@ form {
     display: flex;
     flex-direction: column;
     width: 400px;
-    gap: 25px;
+    gap: 20px;
 }
 
 input {
