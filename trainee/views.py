@@ -6,6 +6,11 @@ from .models import *
 
 def traineeList(request):
     return render(request, 'trainee/list.html', {'trainees': Trainee.objects.all()})
+
+def traineeDetails(request, id):
+    trainee = Trainee.objects.get(id=id)
+    return render(request, 'trainee/details.html', {'trainee': trainee})
+
 def addTrainee(request):
     if request.method == 'POST':
         Trainee.objects.create(
@@ -16,7 +21,23 @@ def addTrainee(request):
         )
         return redirect('TraineeList')
     return render(request, 'trainee/add_trainee.html')
+
 def updateTrainee(request, id):
-    return HttpResponse(f'<h1>Update trainee number:{id}</h1>')
+    trainee = Trainee.objects.get(id=id)
+    if request.method == 'POST':
+        trainee.name = request.POST['trainee-name']
+        trainee.email = request.POST['trainee-email']
+        trainee.phone_number = request.POST['trainee-phone']
+        trainee.age = request.POST['trainee-age']
+        trainee.save()
+        return redirect('TraineeList')
+    return render(request, 'trainee/update.html', {'trainee': trainee})
+
 def deleteTrainee(request, id):
-    return HttpResponse(f'<h1>Delete trainee number:{id}</h1>')
+    trainee = Trainee.objects.get(id=id)
+    
+    if request.method == 'POST':
+        trainee.delete()
+        return redirect('TraineeList')
+
+    return render(request, 'trainee/delete.html', {'trainee': trainee})

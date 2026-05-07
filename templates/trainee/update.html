@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Trainees | Update Trainee{% endblock %}
+
+{% block content %}
+<h1>Update Trainee ({{ trainee.name }})</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="tName">Trainee Name:</label>
+    <input type="text" id="tName" name="trainee-name" value="{{ trainee.name }}" placeholder="Enter trainee name" required>
+    <label for="tEmail">Trainee Email:</label>
+    <input type="email" id="tEmail" name="trainee-email" value="{{ trainee.email }}" placeholder="Enter trainee email" required>
+    <label for="tPhone">Trainee Phone:</label>
+    <input type="text" id="tPhone" name="trainee-phone" value="{{ trainee.phone_number }}" placeholder="Enter trainee phone" required>
+    <label for="tAge">Trainee Age:</label>
+    <input type="number" id="tAge" name="trainee-age" value="{{ trainee.age }}" placeholder="Enter trainee age" required>
+    <button type="submit" class="btn">Update Trainee</button>
+</form>
+{%endblock%}

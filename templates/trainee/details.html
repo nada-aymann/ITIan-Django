@@ -1,13 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Trainees{% endblock %}
+{% block title %}Trainee Details{% endblock %}
 
 {% block content %}
-<h1>Trainee List</h1>
-
-{% if error %}
-<p class="error">{{error}}</p>
-{% endif %}
+<h1>Trainee ({{trainee.name}}) Details</h1>
 
 <table>
     <thead>
@@ -21,7 +17,6 @@
         </tr>
     </thead>
     <tbody>
-        {% for trainee in trainees %}
         <tr>
             <td>{{trainee.id}}</td>
             <td>{{trainee.name}}</td>
@@ -31,11 +26,8 @@
             <td>
                 <a href="{% url 'UpdateTrainee' trainee.id %}">Update</a>
                 <a href="{% url 'DeleteTrainee' trainee.id %}">Delete</a>
-                <a href="{% url 'TraineeDetails' trainee.id %}">Details</a>
             </td>
         </tr>
-        {% endfor %}
     </tbody>
 </table>
-<a href="{% url 'AddTrainee' %}" class="add">Add Trainee</a>
 {%endblock%}
