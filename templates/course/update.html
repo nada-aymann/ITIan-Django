@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Courses | Update Course{% endblock %}
+
+{% block content %}
+<h1>Update Course ({{ course.name }})</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="cName">Course Name:</label>
+    <input type="text" id="cName" name="course-name" value="{{ course.name }}" placeholder="Enter course name" required>
+    <label for="cDuration">Duration (hours):</label>
+    <input type="number" id="cDuration" name="course-duration" value="{{ course.duration }}" placeholder="Enter course duration" required>
+    <button type="submit" class="btn">Update Course</button>
+</form>
+{%endblock%}

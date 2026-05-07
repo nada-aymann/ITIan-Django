@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Courses{% endblock %}
+{% block title %}Course Details{% endblock %}
 
 {% block content %}
-<h1>Courses List</h1>
+<h1>Course ({{course.name}}) Details</h1>
 
 <table>
     <thead>
@@ -15,7 +15,6 @@
         </tr>
     </thead>
     <tbody>
-        {% for course in courses %}
         <tr>
             <td>{{course.id}}</td>
             <td>{{course.name}}</td>
@@ -23,11 +22,8 @@
             <td>
                 <a href="{% url 'UpdateCourse' course.id %}">Update</a>
                 <a href="{% url 'DeleteCourse' course.id %}">Delete</a>
-                <a href="{% url 'CourseDetails' course.id %}">Details</a>
             </td>
         </tr>
-        {% endfor %}
     </tbody>
 </table>
-<a href="{%url 'AddCourse' %}" class="add">Add Course</a>
 {%endblock%}
