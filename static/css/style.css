@@ -91,3 +91,11 @@ input {
     cursor: pointer;
     font-size: 16px;
 }
+
+
+.error {
+    color: red;
+    font-weight: bold;
+    margin-block: 20px;
+    text-align: center;
+}
