@@ -19,7 +19,7 @@
         <tr>
             <td>{{course.id}}</td>
             <td>{{course.name}}</td>
-            <td>{{course.duration}}</td>
+            <td>{{course.duration}} Hours</td>
             <td>
                 <a href="{% url 'UpdateCourse' course.id %}">Update</a>
                 <a href="{% url 'DeleteCourse' course.id %}">Delete</a>
