@@ -11,5 +11,5 @@ class Trainee(models.Model):
     age = models.IntegerField()
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
-def __str__(self):
-    return self.name
+    def __str__(self):
+        return self.name

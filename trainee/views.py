@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from course.models import Course
-from trainee.forms import TraineeForm
+from trainee.forms import *
 from .models import *
 
 
@@ -16,18 +16,27 @@ def traineeDetails(request, id):
 
 def addTrainee(request):
     if request.method == 'POST':
-        form = TraineeForm(data = request.POST)
+        ###^ using ModelForm ### 
+        form = TraineeFormModel(data = request.POST)
         if form.is_valid():
-            Trainee.objects.create(
-                name=request.POST['name'],
-                email=request.POST['email'],
-                phone_number=request.POST['phone_number'],
-                age=request.POST['age'],
-                course=Course.objects.get(pk=request.POST['course'])
-            )
+            form.save() 
             return redirect('TraineeList')
+        
+
+        ###? using django forms ###    
+        # form = TraineeForm(data = request.POST)
+        # if form.is_valid():
+        #     Trainee.objects.create(
+        #         name=request.POST['name'],
+        #         email=request.POST['email'],
+        #         phone_number=request.POST['phone_number'],
+        #         age=request.POST['age'],
+        #         course=Course.objects.get(pk=request.POST['course'])
+        #     )
+        #     return redirect('TraineeList')
+        
     else:
-        form = TraineeForm()
+        form = TraineeFormModel()
     return render(request, 'trainee/add_trainee.html', {'form': form})
 
 
