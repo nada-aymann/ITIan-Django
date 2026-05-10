@@ -75,7 +75,7 @@ form {
     gap: 20px;
 }
 
-input {
+input, #tCourse {
     padding: 10px;
     border: #bfc5cb solid 1px;
     border-radius: 4px;
