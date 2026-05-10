@@ -30,6 +30,7 @@ def addTrainee(request):
         form = TraineeForm()
     return render(request, 'trainee/add_trainee.html', {'form': form})
 
+
 def updateTrainee(request, id):
     trainee = Trainee.objects.get(id=id)
     courses = Course.objects.all()
