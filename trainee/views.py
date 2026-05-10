@@ -17,7 +17,7 @@ def traineeDetails(request, id):
 def addTrainee(request):
     if request.method == 'POST':
         ###^ using ModelForm ### 
-        form = TraineeFormModel(data = request.POST)
+        form = TraineeFormModel(data = request.POST, files = request.FILES)
         if form.is_valid():
             form.save() 
             return redirect('TraineeList')
@@ -48,6 +48,8 @@ def updateTrainee(request, id):
         trainee.email = request.POST['trainee-email']
         trainee.phone_number = request.POST['trainee-phone']
         trainee.age = request.POST['trainee-age']
+        if 'trainee-image' in request.FILES:
+            trainee.image = request.FILES['trainee-image']
         trainee.course = Course.objects.get(pk=request.POST['trainee-course'])
         trainee.save()
         return redirect('TraineeList')

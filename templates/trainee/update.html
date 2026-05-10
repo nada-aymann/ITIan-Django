@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1>Update Trainee ({{ trainee.name }})</h1>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <label for="tName">Trainee Name:</label>
     <input type="text" id="tName" name="trainee-name" value="{{ trainee.name }}" placeholder="Enter trainee name" required>
@@ -14,6 +14,8 @@
     <input type="text" id="tPhone" name="trainee-phone" value="{{ trainee.phone_number }}" placeholder="Enter trainee phone" required>
     <label for="tAge">Trainee Age:</label>
     <input type="number" id="tAge" name="trainee-age" value="{{ trainee.age }}" placeholder="Enter trainee age" required>
+    <label for="tImage">Trainee Image:</label>
+    <input type="file" id="tImage" name="trainee-image" accept="image/*">
     <label for="tCourse">Trainee Course:</label>
     <select name="trainee-course" id="tCourse">
         {% for course in courses %}

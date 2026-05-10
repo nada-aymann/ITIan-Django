@@ -9,6 +9,7 @@ class Trainee(models.Model):
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=20)
     age = models.IntegerField()
+    image = models.ImageField(upload_to='trainees-images/', null=True, blank=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
     def __str__(self):

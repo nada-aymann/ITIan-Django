@@ -13,6 +13,7 @@
     <thead>
         <tr>
             <th>ID</th>
+            <th>Profile Image</th>
             <th>Name</th>
             <th>Email</th>
             <th>Phone Number</th>
@@ -25,6 +26,11 @@
         {% for trainee in trainees %}
         <tr>
             <td>{{trainee.id}}</td>
+            <td>
+                {% if trainee.image %}
+                    <img src="{{trainee.image.url}}" alt="{{trainee.name}}">
+                {% endif %}
+            </td>
             <td>{{trainee.name}}</td>
             <td>{{trainee.email}}</td>
             <td>{{trainee.phone_number}}</td>

@@ -9,6 +9,7 @@
     <thead>
         <tr>
             <th>ID</th>
+            <th>Profile Image</th>
             <th>Name</th>
             <th>Email</th>
             <th>Phone Number</th>
@@ -20,6 +21,10 @@
     <tbody>
         <tr>
             <td>{{trainee.id}}</td>
+            <td>
+                {% if trainee.image %}
+                    <img src="{{trainee.image.url}}" alt="{{trainee.name}}" width="100">
+                {% endif %}
             <td>{{trainee.name}}</td>
             <td>{{trainee.email}}</td>
             <td>{{trainee.phone_number}}</td>
