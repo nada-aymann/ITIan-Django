@@ -17,6 +17,7 @@
             <th>Email</th>
             <th>Phone Number</th>
             <th>Age</th>
+            <th>Course</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -28,6 +29,7 @@
             <td>{{trainee.email}}</td>
             <td>{{trainee.phone_number}}</td>
             <td>{{trainee.age}}</td>
+            <td>{{trainee.course.name}}</td>
             <td>
                 <a href="{% url 'UpdateTrainee' trainee.id %}">Update</a>
                 <a href="{% url 'DeleteTrainee' trainee.id %}">Delete</a>

@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from course.models import Course
 from .models import *
+
 
 # Create your views here.
 
@@ -17,21 +19,24 @@ def addTrainee(request):
             name = request.POST['trainee-name'],
             email = request.POST['trainee-email'],
             phone_number = request.POST['trainee-phone'],
-            age = request.POST['trainee-age']
+            age = request.POST['trainee-age'],
+            course = Course.objects.get(pk=request.POST['trainee-course'])
         )
         return redirect('TraineeList')
-    return render(request, 'trainee/add_trainee.html')
+    return render(request, 'trainee/add_trainee.html', {'courses': Course.objects.all()})
 
 def updateTrainee(request, id):
     trainee = Trainee.objects.get(id=id)
+    courses = Course.objects.all()
     if request.method == 'POST':
         trainee.name = request.POST['trainee-name']
         trainee.email = request.POST['trainee-email']
         trainee.phone_number = request.POST['trainee-phone']
         trainee.age = request.POST['trainee-age']
+        trainee.course = Course.objects.get(pk=request.POST['trainee-course'])
         trainee.save()
         return redirect('TraineeList')
-    return render(request, 'trainee/update.html', {'trainee': trainee})
+    return render(request, 'trainee/update.html', {'trainee': trainee, 'courses': courses})
 
 def deleteTrainee(request, id):
     trainee = Trainee.objects.get(id=id)
