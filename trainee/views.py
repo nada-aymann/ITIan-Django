@@ -1,6 +1,8 @@
 from django.http import HttpResponse
+from django.urls import reverse_lazy
 from django.shortcuts import redirect, render
 from django.views import View
+from django.views.generic import CreateView, ListView
 from course.models import Course
 from trainee.forms import *
 from .models import *
@@ -8,13 +10,20 @@ from .models import *
 
 # Create your views here.
 
-def traineeList(request):
-    return render(request, 'trainee/list.html', {'trainees': Trainee.objects.all()})
+# def traineeList(request):
+#     return render(request, 'trainee/list.html', {'trainees': Trainee.objects.all()})
+
+##& trainee list -> generic view ##
+class TraineeListGeneric(ListView):
+    model = Trainee
+    template_name = 'trainee/list.html'
+    context_object_name = 'trainees'
 
 def traineeDetails(request, id):
     trainee = Trainee.objects.get(id=id)
     return render(request, 'trainee/details.html', {'trainee': trainee})
 
+##? Add trainee -> function based view ##
 # def addTrainee(request):
 #     if request.method == 'POST':
 #         ###^ using ModelForm ### 
@@ -40,18 +49,24 @@ def traineeDetails(request, id):
     #     form = TraineeFormModel()
     # return render(request, 'trainee/add_trainee.html', {'form': form})
 
-#? Add trainee -> class based view
-class AddTraineeView(View):
-    def get(self, request):
-        return render(request, 'trainee/add_trainee.html', {'form': TraineeFormModel()})
+##? Add trainee -> class based view ##
+# class AddTraineeView(View):
+#     def get(self, request):
+#         return render(request, 'trainee/add_trainee.html', {'form': TraineeFormModel()})
     
-    def post(self, request):
-        form = TraineeFormModel(data = request.POST, files = request.FILES)
-        if form.is_valid():
-            form.save() 
-            return redirect('TraineeList')
-        return render(request, 'trainee/add_trainee.html', {'form': form})
+#     def post(self, request):
+#         form = TraineeFormModel(data = request.POST, files = request.FILES)
+#         if form.is_valid():
+#             form.save() 
+#             return redirect('TraineeList')
+#         return render(request, 'trainee/add_trainee.html', {'form': form})
     
+##* Add trainee -> generic view ##
+class AddTraineeGeneric(CreateView):
+    model = Trainee
+    template_name = 'trainee/add_trainee.html'
+    form_class = TraineeFormModel
+    success_url = reverse_lazy('TraineeList')
 
 
 def updateTrainee(request, id):
