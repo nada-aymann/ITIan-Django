@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.views import View
 from course.models import Course
 from trainee.forms import *
 from .models import *
@@ -14,13 +15,13 @@ def traineeDetails(request, id):
     trainee = Trainee.objects.get(id=id)
     return render(request, 'trainee/details.html', {'trainee': trainee})
 
-def addTrainee(request):
-    if request.method == 'POST':
-        ###^ using ModelForm ### 
-        form = TraineeFormModel(data = request.POST, files = request.FILES)
-        if form.is_valid():
-            form.save() 
-            return redirect('TraineeList')
+# def addTrainee(request):
+#     if request.method == 'POST':
+#         ###^ using ModelForm ### 
+#         form = TraineeFormModel(data = request.POST, files = request.FILES)
+#         if form.is_valid():
+#             form.save() 
+#             return redirect('TraineeList')
         
 
         ###? using django forms ###    
@@ -35,9 +36,22 @@ def addTrainee(request):
         #     )
         #     return redirect('TraineeList')
         
-    else:
-        form = TraineeFormModel()
-    return render(request, 'trainee/add_trainee.html', {'form': form})
+    # else:
+    #     form = TraineeFormModel()
+    # return render(request, 'trainee/add_trainee.html', {'form': form})
+
+#? Add trainee -> class based view
+class AddTraineeView(View):
+    def get(self, request):
+        return render(request, 'trainee/add_trainee.html', {'form': TraineeFormModel()})
+    
+    def post(self, request):
+        form = TraineeFormModel(data = request.POST, files = request.FILES)
+        if form.is_valid():
+            form.save() 
+            return redirect('TraineeList')
+        return render(request, 'trainee/add_trainee.html', {'form': form})
+    
 
 
 def updateTrainee(request, id):
