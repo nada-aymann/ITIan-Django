@@ -9,9 +9,22 @@
 <body>
 
     <nav>
-        <a href="{% url 'TraineeList' %}">Trainees</a>
-        <a href="{% url 'CourseList' %}">Courses</a>
-        <a href="{% url 'Logout' %}">Logout</a>
+        {% if user.is_authenticated %}
+                <div class="nav-links">
+                <span style="font-size: 20px;">Welcome, {{ user.username }}!</span>
+                <a href="{% url 'TraineeList' %}">Trainees</a>
+                <a href="{% url 'CourseList' %}">Courses</a>
+                </div>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn logout" type="submit">Logout</button>
+                </form>
+            {% else %}
+                <div>
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+                </div>
+            {% endif %}
     </nav>
 
     <main>

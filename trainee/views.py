@@ -1,8 +1,9 @@
-from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.shortcuts import redirect, render
 from django.views import View
 from django.views.generic import CreateView, ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from course.models import Course
 from trainee.forms import *
 from .models import *
@@ -14,11 +15,12 @@ from .models import *
 #     return render(request, 'trainee/list.html', {'trainees': Trainee.objects.all()})
 
 ##& trainee list -> generic view ##
-class TraineeListGeneric(ListView):
+class TraineeListGeneric(LoginRequiredMixin, ListView):
     model = Trainee
     template_name = 'trainee/list.html'
     context_object_name = 'trainees'
 
+@login_required
 def traineeDetails(request, id):
     trainee = Trainee.objects.get(id=id)
     return render(request, 'trainee/details.html', {'trainee': trainee})
@@ -62,13 +64,14 @@ def traineeDetails(request, id):
 #         return render(request, 'trainee/add_trainee.html', {'form': form})
     
 ##* Add trainee -> generic view ##
-class AddTraineeGeneric(CreateView):
+class AddTraineeGeneric(LoginRequiredMixin, CreateView):
     model = Trainee
     template_name = 'trainee/add_trainee.html'
     form_class = TraineeFormModel
     success_url = reverse_lazy('TraineeList')
 
 
+@login_required
 def updateTrainee(request, id):
     trainee = Trainee.objects.get(id=id)
     courses = Course.objects.all()
@@ -84,6 +87,7 @@ def updateTrainee(request, id):
         return redirect('TraineeList')
     return render(request, 'trainee/update.html', {'trainee': trainee, 'courses': courses})
 
+@login_required
 def deleteTrainee(request, id):
     trainee = Trainee.objects.get(id=id)
     
